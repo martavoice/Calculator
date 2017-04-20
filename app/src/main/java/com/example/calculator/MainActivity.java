@@ -33,7 +33,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static ArrayList<String> orderOfOperations = new ArrayList<>();
     private static ArrayList<String> orderOfNumbers = new ArrayList<>();
     TextView tvresult;
-    String oper = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
         div = (Button) findViewById(R.id.div);
         sub = (Button) findViewById(R.id.sub);
         tvresult = (TextView) findViewById(R.id.tvResult);
+        n0 = (Button) findViewById(R.id.n0);
+        n1 = (Button) findViewById(R.id.n1);
+        n2 = (Button) findViewById(R.id.n2);
+        n3 = (Button) findViewById(R.id.n3);
+        n4 = (Button) findViewById(R.id.n4);
+        n5 = (Button) findViewById(R.id.n5);
+        n6 = (Button) findViewById(R.id.n6);
+        n7 = (Button) findViewById(R.id.n7);
+        n8 = (Button) findViewById(R.id.n8);
+        n9 = (Button) findViewById(R.id.n9);
+        dot = (Button) findViewById(R.id.dot);
+        equal = (Button) findViewById(R.id.equal);
 
         //set listeners
         add.setOnClickListener(this);
@@ -77,28 +89,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return result;
     }
 
-    public static String createCurrentNumber(ArrayList<String> list) {
-        String result = "";
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equals("+") || list.get(i).equals("-") || list.get(i).equals("*") || list.get(i).equals("*")) {
-                for (int j = i + 1; j < list.size(); j++) {
-                    result += list.get(j);
-                }
-            } else {
-                for (String var : list) {
-                    result += var;
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public static void fullLists(ArrayList<String> list) {
+       public static void fullLists(ArrayList<String> list) {
+        boolean isOperatorExist = false;
+        String number = "";
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).equals("+") || list.get(i).equals("*") || list.get(i).equals("-") || list.get(i).equals("/")) {
                 orderOfOperations.add(list.get(i));
-                String number = "";
                 for (int j = 0; j < i; j++) {
                     number += list.get(j);
                 }
@@ -106,8 +102,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 for (int j = 0; j <= i; j++) {
                     list.remove(j);
                 }
+                isOperatorExist = true;
             }
 
+        }
+        if (!isOperatorExist){
+            for (int i = 0; i < list.size(); i++) {
+                number += list.get(i);
+            }
+            orderOfNumbers.add(number);
         }
         if (list.size() != 0) {
             fullLists(list);
@@ -118,83 +121,112 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     public static String count(ArrayList<String> list) {
         String result = "";
+        fullLists(list);
+        for (int i = 0; i < orderOfNumbers.size(); i++) {
+            switch (orderOfOperations.get(0)){
+                case "+":
 
-
+            }
+        }
         return result;
     }
 
     @Override
     public void onClick(View v) {
-        if (TextUtils.isEmpty(editText.getText().toString())) {
-            return;
-        }
 
         switch (v.getId()) {
             case R.id.n1:
                 listOfOperations.add("1");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n2:
                 listOfOperations.add("2");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n3:
                 listOfOperations.add("3");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n4:
                 listOfOperations.add("4");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n5:
                 listOfOperations.add("5");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n6:
                 listOfOperations.add("6");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n7:
                 listOfOperations.add("7");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n8:
                 listOfOperations.add("8");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n9:
                 listOfOperations.add("9");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.n0:
                 listOfOperations.add("0");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
             case R.id.dot:
                 listOfOperations.add(".");
                 tvresult.setText(createLineOfOperations(listOfOperations));
-                editText.setText(createCurrentNumber(listOfOperations));
+
                 break;
+
+
+            // need to think about
             case R.id.add:
-                listOfOperations.add("+");
+
+                    listOfOperations.add("+");
+
+                tvresult.setText(createLineOfOperations(listOfOperations));
+                break;
             case R.id.mult:
-                listOfOperations.add("*");
+                if (listOfOperations.get(listOfOperations.size()-1).equals("-")
+                        ||listOfOperations.get(listOfOperations.size()-1).equals("+")|| listOfOperations.get(listOfOperations.size()-1).equals("/")){
+                    listOfOperations.remove(listOfOperations.size()-1);
+                }else {
+                    listOfOperations.add("*");
+                }
+                tvresult.setText(createLineOfOperations(listOfOperations));
+                break;
             case R.id.sub:
-                listOfOperations.add("-");
+                if (listOfOperations.get(listOfOperations.size()-1).equals("+")
+                        ||listOfOperations.get(listOfOperations.size()-1).equals("*")|| listOfOperations.get(listOfOperations.size()-1).equals("/")){
+                    listOfOperations.remove(listOfOperations.size()-1);
+                }else {
+                    listOfOperations.add("-");
+                }
+                break;
             case R.id.div:
-                listOfOperations.add("/");
+                if (listOfOperations.get(listOfOperations.size()-1).equals("-")
+                        ||listOfOperations.get(listOfOperations.size()-1).equals("*")|| listOfOperations.get(listOfOperations.size()-1).equals("+")){
+                    listOfOperations.remove(listOfOperations.size()-1);
+                }else {
+                    listOfOperations.add("/");
+                }
+                break;
             case R.id.equal:
                 count(listOfOperations);
+                break;
         }
 
     }
