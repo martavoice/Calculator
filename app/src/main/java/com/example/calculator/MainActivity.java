@@ -33,15 +33,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static ArrayList<String> orderOfOperations = new ArrayList<>();
     private static ArrayList<String> orderOfNumbers = new ArrayList<>();
     TextView tvresult;
-
+    String s = "0";
+    double result = 0;
+    char lO = ' ';
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //initialisation elements
-        editText = (TextView) findViewById(R.id.editText);
+
         add = (Button) findViewById(R.id.add);
         mult = (Button) findViewById(R.id.mult);
         div = (Button) findViewById(R.id.div);
@@ -59,6 +62,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         n9 = (Button) findViewById(R.id.n9);
         dot = (Button) findViewById(R.id.dot);
         equal = (Button) findViewById(R.id.equal);
+
+        tvresult.setText("0");
 
         //set listeners
         add.setOnClickListener(this);
@@ -81,154 +86,78 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
-    public static String createLineOfOperations(ArrayList<String> list) {
-        String result = "";
-        for (String var : list) {
-            result += var;
-        }
-        return result;
-    }
 
-       public static void fullLists(ArrayList<String> list) {
-        boolean isOperatorExist = false;
-        String number = "";
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equals("+") || list.get(i).equals("*") || list.get(i).equals("-") || list.get(i).equals("/")) {
-                orderOfOperations.add(list.get(i));
-                for (int j = 0; j < i; j++) {
-                    number += list.get(j);
-                }
-                orderOfNumbers.add(number);
-                for (int j = 0; j <= i; j++) {
-                    list.remove(j);
-                }
-                isOperatorExist = true;
-            }
-
-        }
-        if (!isOperatorExist){
-            for (int i = 0; i < list.size(); i++) {
-                number += list.get(i);
-            }
-            orderOfNumbers.add(number);
-        }
-        if (list.size() != 0) {
-            fullLists(list);
-        }
-
-    }
-
-
-    public static String count(ArrayList<String> list) {
-        String result = "";
-        fullLists(list);
-        for (int i = 0; i < orderOfNumbers.size(); i++) {
-            switch (orderOfOperations.get(0)){
-                case "+":
-                    result = orderOfNumbers.get(0) + orderOfNumbers.get(1);
-
-            }
-        }
-        return result;
-    }
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case R.id.n1:
-                listOfOperations.add("1");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n2:
-                listOfOperations.add("2");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n3:
-                listOfOperations.add("3");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n4:
-                listOfOperations.add("4");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n5:
-                listOfOperations.add("5");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n6:
-                listOfOperations.add("6");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n7:
-                listOfOperations.add("7");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n8:
-                listOfOperations.add("8");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n9:
-                listOfOperations.add("9");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.n0:
-                listOfOperations.add("0");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
-                break;
             case R.id.dot:
-                listOfOperations.add(".");
-                tvresult.setText(createLineOfOperations(listOfOperations));
-
+                String inDigit = ((Button) v).getText().toString();
+                if (s.equals("0")) {
+                    s = inDigit;
+                } else {
+                    s += inDigit;
+                }
+                tvresult.setText(s);
+                if (lO == '=') {
+                    result = 0;
+                    lO = ' ';
+                }
                 break;
 
 
             // need to think about
             case R.id.add:
-
-                    listOfOperations.add("+");
-
-                tvresult.setText(createLineOfOperations(listOfOperations));
+                compute();
+                lO = '+';
                 break;
             case R.id.mult:
-                if (listOfOperations.get(listOfOperations.size()-1).equals("-")
-                        ||listOfOperations.get(listOfOperations.size()-1).equals("+")|| listOfOperations.get(listOfOperations.size()-1).equals("/")){
-                    listOfOperations.remove(listOfOperations.size()-1);
-                }else {
-                    listOfOperations.add("*");
-                }
-                tvresult.setText(createLineOfOperations(listOfOperations));
+                compute();
+                lO = '*';
                 break;
             case R.id.sub:
-                if (listOfOperations.get(listOfOperations.size()-1).equals("+")
-                        ||listOfOperations.get(listOfOperations.size()-1).equals("*")|| listOfOperations.get(listOfOperations.size()-1).equals("/")){
-                    listOfOperations.remove(listOfOperations.size()-1);
-                }else {
-                    listOfOperations.add("-");
-                }
+                compute();
+                lO = '-';
                 break;
             case R.id.div:
-                if (listOfOperations.get(listOfOperations.size()-1).equals("-")
-                        ||listOfOperations.get(listOfOperations.size()-1).equals("*")|| listOfOperations.get(listOfOperations.size()-1).equals("+")){
-                    listOfOperations.remove(listOfOperations.size()-1);
-                }else {
-                    listOfOperations.add("/");
-                }
+                compute();
+                lO = '/';
                 break;
             case R.id.equal:
-                count(listOfOperations);
+                compute();
+                lO = '=';
                 break;
         }
 
+    }
+    private void compute() {
+
+        double inNum = Double.parseDouble(s);
+        s = "0";
+        if (lO == ' ') {
+            result = inNum;
+        } else if (lO == '+') {
+            result += inNum;
+        } else if (lO == '-') {
+            result -= inNum;
+        } else if (lO == '*') {
+            result *= inNum;
+        } else if (lO == '/') {
+            result /= inNum;
+        } else if (lO == '=') {
+            // Keep the result for the next operation
+        }
+        tvresult.setText(String.valueOf(result));
     }
 }
