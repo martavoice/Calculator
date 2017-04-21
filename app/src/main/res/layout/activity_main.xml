@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:textSize="30pt"
         android:id="@+id/tvResult"
-        android:gravity="center_horizontal"
+        android:gravity="right"
         android:inputType="numberDecimal"
         android:background="@color/colorBack"
-        android:layout_gravity="right"
+
         />
 
 
@@ -193,5 +193,15 @@
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/clear"
+        android:textSize="35dp"
+        android:textColor="@color/colorWhite"
+        android:textAlignment="center"/>
 
 </LinearLayout>

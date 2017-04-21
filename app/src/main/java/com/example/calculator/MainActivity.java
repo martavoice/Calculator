@@ -30,6 +30,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Button n9;
     Button dot;
     Button equal;
+    Button clear;
     private static ArrayList<String> orderOfOperations = new ArrayList<>();
     private static ArrayList<String> orderOfNumbers = new ArrayList<>();
     TextView tvresult;
@@ -62,7 +63,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         n9 = (Button) findViewById(R.id.n9);
         dot = (Button) findViewById(R.id.dot);
         equal = (Button) findViewById(R.id.equal);
-
+        clear = (Button) findViewById(R.id.clear);
         tvresult.setText("0");
 
         //set listeners
@@ -83,6 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         n9.setOnClickListener(this);
         dot.setOnClickListener(this);
         equal.setOnClickListener(this);
+        clear.setOnClickListener(this);
 
     }
 
@@ -137,6 +139,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.equal:
                 compute();
                 lO = '=';
+                break;
+            case R.id.clear:
+                result = 0;
+                s = "0";
+                lO = ' ';
+                tvresult.setText("0");
                 break;
         }
 

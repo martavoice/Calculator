@@ -16,4 +16,5 @@
     <string name="min">-</string>
     <string name="equal">=</string>
     <string name="dot">.</string>
+    <string name="clear">clear</string>
 </resources>
