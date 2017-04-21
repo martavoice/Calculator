@@ -3,17 +3,13 @@ package com.example.calculator;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 
 public class MainActivity extends Activity implements View.OnClickListener {
-    ArrayList<String> listOfOperations = new ArrayList<>();
-    TextView editText;
+
     Button add;
     Button mult;
     Button div;
@@ -31,8 +27,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Button dot;
     Button equal;
     Button clear;
-    private static ArrayList<String> orderOfOperations = new ArrayList<>();
-    private static ArrayList<String> orderOfNumbers = new ArrayList<>();
+
     TextView tvresult;
     String s = "0";
     double result = 0;
@@ -151,6 +146,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
     private void compute() {
 
+
         double inNum = Double.parseDouble(s);
         s = "0";
         if (lO == ' ') {
@@ -168,4 +164,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         tvresult.setText(String.valueOf(result));
     }
+
 }
