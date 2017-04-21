@@ -125,6 +125,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         for (int i = 0; i < orderOfNumbers.size(); i++) {
             switch (orderOfOperations.get(0)){
                 case "+":
+                    result = orderOfNumbers.get(0) + orderOfNumbers.get(1);
 
             }
         }
