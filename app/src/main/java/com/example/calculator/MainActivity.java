@@ -160,7 +160,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         } else if (lO == '/') {
             result /= inNum;
         } else if (lO == '=') {
-            // Keep the result for the next operation
+
         }
         tvresult.setText(String.valueOf(result));
     }
