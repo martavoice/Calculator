@@ -148,6 +148,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
         double inNum = Double.parseDouble(s);
+        int mum = Integer.parseInt(s);
         s = "0";
         if (lO == ' ') {
             result = inNum;
